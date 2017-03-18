@@ -1,0 +1,10 @@
+F:\Inf\sashka einstein\education\семестры\весенний семестр 2017\ТВиМС (лаб)\лаб.раб\Modeling\sln\Modeling\Modeling\bin\Debug\Modeling.exe
+F:\Inf\sashka einstein\education\семестры\весенний семестр 2017\ТВиМС (лаб)\лаб.раб\Modeling\sln\Modeling\Modeling\bin\Debug\Modeling.pdb
+F:\Inf\sashka einstein\education\семестры\весенний семестр 2017\ТВиМС (лаб)\лаб.раб\Modeling\sln\Modeling\Modeling\obj\x86\Debug\Modeling.Form1.resources
+F:\Inf\sashka einstein\education\семестры\весенний семестр 2017\ТВиМС (лаб)\лаб.раб\Modeling\sln\Modeling\Modeling\obj\x86\Debug\Modeling.Properties.Resources.resources
+F:\Inf\sashka einstein\education\семестры\весенний семестр 2017\ТВиМС (лаб)\лаб.раб\Modeling\sln\Modeling\Modeling\obj\x86\Debug\Modeling.csproj.GenerateResource.Cache
+F:\Inf\sashka einstein\education\семестры\весенний семестр 2017\ТВиМС (лаб)\лаб.раб\Modeling\sln\Modeling\Modeling\obj\x86\Debug\Modeling.exe
+F:\Inf\sashka einstein\education\семестры\весенний семестр 2017\ТВиМС (лаб)\лаб.раб\Modeling\sln\Modeling\Modeling\obj\x86\Debug\Modeling.pdb
+F:\Inf\sashka einstein\education\семестры\весенний семестр 2017\ТВиМС (лаб)\лаб.раб\Modeling\sln\Modeling\Modeling\obj\x86\Debug\Modeling.Form2.resources
+F:\Inf\sashka einstein\education\семестры\весенний семестр 2017\ТВиМС (лаб)\лаб.раб\Modeling\sln\Modeling\Modeling\obj\x86\Debug\Modeling.Form3.resources
+F:\Inf\sashka einstein\education\семестры\весенний семестр 2017\ТВиМС (лаб)\лаб.раб\Modeling\sln\Modeling\Modeling\obj\x86\Debug\Modeling.csprojResolveAssemblyReference.cache
