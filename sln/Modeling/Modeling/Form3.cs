@@ -21,9 +21,9 @@ namespace Modeling
         {
             dataGridView1.RowCount = 2;
             dataGridView1.ColumnCount = Convert.ToInt32(textBox2.Text);
-            ConditionalFunc elem = new ConditionalFunc((float)Convert.ToDouble(textBox1.Text), Convert.ToInt32(textBox2.Text));
+            GenValues elem = new GenValues((float)Convert.ToDouble(textBox1.Text), Convert.ToInt32(textBox2.Text));
             for (int i = 0; i < Convert.ToInt32(textBox2.Text); i++)
-                elem.SetVal(elem.GetRandomValue());
+                elem.GenVal(elem.GetRandomValue());
             elem.GetVal();
 
             for (int i = 0; i < Convert.ToInt32(textBox2.Text); i++)
