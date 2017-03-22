@@ -14,6 +14,7 @@ namespace Modeling
         public Form3()
         {
             InitializeComponent();
+            pictureBox1.Image = new Bitmap(@"F:\Inf\sashka einstein\education\семестры\весенний семестр 2017\ТВиМС (лаб)\лаб.раб\Modeling\pictures\E2.png");
         }
 
 

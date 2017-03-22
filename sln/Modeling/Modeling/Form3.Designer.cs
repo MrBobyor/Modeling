@@ -34,7 +34,10 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.label3 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -87,11 +90,32 @@
             this.dataGridView1.Size = new System.Drawing.Size(583, 150);
             this.dataGridView1.TabIndex = 6;
             // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(243, 21);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(339, 32);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Скорость соударения молекул — случайная величина, распределённая по закону Релея " +
+    "с параметром σ:\r\n";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.InitialImage = global::Modeling.Properties.Resources.E2;
+            this.pictureBox1.Location = new System.Drawing.Point(272, 56);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(207, 62);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 8;
+            this.pictureBox1.TabStop = false;
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(607, 302);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox2);
@@ -101,6 +125,7 @@
             this.Name = "Form3";
             this.Text = "Form3";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -114,5 +139,7 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

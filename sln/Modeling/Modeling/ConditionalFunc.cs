@@ -7,16 +7,19 @@ namespace Modeling
 {
     public class ConditionalFunc
     {
-        public float functionDisribution(float y, float sigma)
+        // for experiment 1
+        
+        // for experiment 2
+        public float functionDisribution2(float y, float sigma)
         {
             if (y < 0)
                 return 0;
             return (float)(y * Math.Exp(-Math.Pow(y, 2) / 2 * Math.Pow(sigma, 2)) / Math.Pow(sigma, 2));
         }
 
-        public float reverseFunctionDisribution(float functionDisributionValue, float sigma)
+        public float reverseFunctionDisribution2(float functionDisributionValue2, float sigma)
         {
-            return (float)Math.Sqrt(-2 * Math.Pow(sigma, 2) * Math.Log(1 - functionDisributionValue));
+            return (float)Math.Sqrt(-2 * Math.Pow(sigma, 2) * Math.Log(1 - functionDisributionValue2));
         }
     }
 }

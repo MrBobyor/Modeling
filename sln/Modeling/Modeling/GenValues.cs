@@ -29,7 +29,7 @@ namespace Modeling
         {
             if (u < 0 || u > 1)
                 return;
-            queue.Enqueue(reverseFunctionDisribution(u, sigma));
+            queue.Enqueue(reverseFunctionDisribution2(u, sigma));
         }
 
         public void GetVal()
