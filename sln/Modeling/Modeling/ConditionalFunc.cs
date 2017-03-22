@@ -11,6 +11,7 @@ namespace Modeling
         public float sigma;
         public int num;
         public float[] val;
+        Random rnd = new Random();
 
         public ConditionalFunc(float s, int n)
         {
@@ -21,7 +22,6 @@ namespace Modeling
 
         public float GetRandomValue()
         {
-            Random rnd = new Random();
             return (float)rnd.NextDouble();
         }
 
