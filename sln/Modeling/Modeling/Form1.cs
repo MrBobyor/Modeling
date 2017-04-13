@@ -15,8 +15,6 @@ namespace Modeling
         {
             InitializeComponent();
         }
-
-        //text 2
         
         private void button1_Click(object sender, EventArgs e)
         {
