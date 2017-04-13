@@ -21,5 +21,6 @@ namespace Modeling
             //return (float)Math.Sqrt(-2 * Math.Pow(sigma, 2) * Math.Log(1 - functionDisributionValue2));
             return (float)(Math.Sqrt(2 * Math.Pow(sigma, 2) * Math.Log(1 / (1 - functionDisributionValue2))));
         }
+
     }
 }
