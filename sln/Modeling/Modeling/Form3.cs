@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace Modeling
 {
@@ -41,34 +43,59 @@ namespace Modeling
             int hX;
             double xF = 0, yF = 0;
             int y;
+            int scale = 100;
+
+
 
             wX = pictureBox2.Width;
             hX = pictureBox2.Height;
             
-            //syscord
+            System.Drawing.Pen myPen1;
+            System.Drawing.Pen myPen2;
+            System.Drawing.Pen myPen3;
+            myPen1 = new System.Drawing.Pen(System.Drawing.Color.Black);
+            myPen2 = new System.Drawing.Pen(System.Drawing.Color.Blue);
+            myPen3 = new System.Drawing.Pen(System.Drawing.Color.Red);
+           
+            //system cord
             Bitmap flag = new Bitmap(pictureBox2.Width, pictureBox2.Height);
             Graphics flagGraphics = Graphics.FromImage(flag);
-            System.Drawing.Pen myPen;
-            myPen = new System.Drawing.Pen(System.Drawing.Color.Black);
-            flagGraphics.DrawLine(myPen, 0, hX - 2, 0, 0);
-            flagGraphics.DrawLine(myPen, 0, hX - 2, wX, hX - 2);
+            flagGraphics.DrawLine(myPen1, 0, hX - 2, 0, 0);
+            flagGraphics.DrawLine(myPen1, 0, hX - 2, wX, hX - 2);
+            
 
-            int X = 0;
-            int Y = hX - 2;
+            //values cord
+            for (int i = 0; i < Convert.ToInt32(textBox2.Text); i++)
+            {
+                flagGraphics.DrawLine(myPen1, i, hX - 2, i, hX + 2);
+                i += wX / Convert.ToInt32(textBox2.Text);
+            }
 
             // grafic F2
+            int X2 = 0;
+            int Y2 = hX - 2;
             for (y = 0; y < Convert.ToInt32(textBox2.Text); y++)
             {
-                xF = y * 25;
+                xF = (y + 1) * (wX / Convert.ToInt32(textBox2.Text));
                 float tmp = elem.functionDisribution2(elem.val[y], (float)Convert.ToDouble(textBox1.Text));
-                yF = hX - tmp * 225;
+                yF = hX - tmp * scale;
                 //flag.SetPixel((int)xF, (int)yF, Color.Red);
-                System.Drawing.Pen myPen2;
-                myPen2 = new System.Drawing.Pen(System.Drawing.Color.Blue);
-                flagGraphics.DrawLine(myPen2, X, Y, (int)xF, (int)yF);
-                X = (int)xF;
-                Y = (int)yF;
+                flagGraphics.DrawLine(myPen2, X2, Y2, (int)xF, (int)yF);
+                X2 = (int)xF;
+                Y2 = (int)yF;
             }
+            
+            myPen1.DashStyle = DashStyle.Dash;
+            //1
+            flagGraphics.DrawLine(myPen1, new Point(0, hX - scale), new Point(wX, hX - scale));
+            //mesh
+            for (int i = 0; i < Convert.ToInt32(textBox2.Text); i += (wX / Convert.ToInt32(textBox2.Text)))
+                /*if (i == 0)
+                    continue;
+                else*/
+                    flagGraphics.DrawLine(myPen1, new Point(i, 0), new Point(i, hX));
+
+                myPen1.Dispose();
             pictureBox2.Image = flag;
         }
 
