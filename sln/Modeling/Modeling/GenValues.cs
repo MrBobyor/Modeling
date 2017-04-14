@@ -50,5 +50,40 @@ namespace Modeling
                         val[j + 1] = tmp;
                     }
         }
+
+        public float SampleMean()
+        {
+            float sampleMean = 0;
+            for(int i = 0; i < num; i++)
+                sampleMean += val[i];
+            return (1/num) * sampleMean; 
+        }
+
+        public float SampleDispersion()
+        {
+            float x = SampleMean();
+            float sampleDispersion = 0;
+            for (int i = 0; i < num; i++)
+                sampleDispersion += (float)(Math.Pow((val[i] - x), 2));
+            return (1 / num) * sampleDispersion;
+        }
+
+        public float SampleScope()
+        {
+            float sampleScope = 0;
+            sampleScope = val[num - 1] - val[0];
+            return sampleScope;
+        }
+
+        public float SampleMedian()
+        {
+            //если одно значение?
+            float sampleMedian = 0;
+            if (num % 2 != 0)
+                sampleMedian = val[num / 2];
+            else
+                sampleMedian = (val[(num - 1) / 2] + val[(num - 3) / 2]) / 2;
+            return sampleMedian;
+        }
     }
 }

@@ -35,6 +35,17 @@ namespace Modeling
                 dataGridView1.Rows[0].Cells[i].Value = "x" + (i + 1);
                 dataGridView1.Rows[1].Cells[i].Value =  elem.val[i].ToString();
             }
+
+            dataGridView2.RowCount = 2;
+            dataGridView2.ColumnCount = 8;
+            //dataGridView2.Rows[1].Cells[0].Value = 0;
+            dataGridView2.Rows[1].Cells[1].Value = elem.SampleMean().ToString();
+            //dataGridView2.Rows[1].Cells[2].Value = 0;
+            //dataGridView2.Rows[1].Cells[3].Value = 0;
+            dataGridView2.Rows[1].Cells[4].Value = elem.SampleDispersion().ToString();
+            //dataGridView2.Rows[1].Cells[5].Value = 0;
+            dataGridView2.Rows[1].Cells[6].Value = elem.SampleMedian().ToString();
+            dataGridView2.Rows[1].Cells[7].Value = elem.SampleScope().ToString();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -44,8 +55,6 @@ namespace Modeling
             double xF = 0, yF = 0;
             int y;
             int scale = 100;
-
-
 
             wX = pictureBox2.Width;
             hX = pictureBox2.Height;
@@ -71,6 +80,8 @@ namespace Modeling
                 i += wX / Convert.ToInt32(textBox2.Text);
             }
 
+            //grafic F1
+
             // grafic F2
             int X2 = 0;
             int Y2 = hX - 2;
@@ -89,13 +100,13 @@ namespace Modeling
             //1
             flagGraphics.DrawLine(myPen1, new Point(0, hX - scale), new Point(wX, hX - scale));
             //mesh
-            for (int i = 0; i < Convert.ToInt32(textBox2.Text); i += (wX / Convert.ToInt32(textBox2.Text)))
-                /*if (i == 0)
+            /*for (int i = 0; i < Convert.ToInt32(textBox2.Text); i += (wX / Convert.ToInt32(textBox2.Text)))
+                if (i == 0)
                     continue;
-                else*/
-                    flagGraphics.DrawLine(myPen1, new Point(i, 0), new Point(i, hX));
+                else
+                    flagGraphics.DrawLine(myPen1, new Point(i, 0), new Point(i, hX));*/
 
-                myPen1.Dispose();
+            myPen1.Dispose();
             pictureBox2.Image = flag;
         }
 
