@@ -139,6 +139,8 @@ namespace Modeling
 
             //--------------------------------------------------------------------------------------------------
             //выборочная функция распределения
+            chart2.Series[0].Points.Clear();
+            chart2.Series[0].LegendText = "выборочная";
             chart2.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             //chart2.Series.Add("Функция распределения");
             //chart2.Series["Функция распределения"].Points.Clear();
@@ -148,10 +150,11 @@ namespace Modeling
             int count = (int)Math.Ceiling((Xmax - Xmin) / step);
             double[] x1 = new double[count + 1];
             double[] k1 = new double[count + 1];
+            //chart2.Series[0].IsValueShownAsLabel = true;  //значения
 
             x1[0] = Xmin;
-            x1[count] = Xmin + step * (count);
             k1[0] = 0;
+            x1[count] = Xmin + step * (count);
             k1[count] = 1;
             for (int i = 1; i < count; i++)
             {
@@ -166,32 +169,28 @@ namespace Modeling
             chart2.Series[0].Points.DataBindXY(x1, k1);
 
             //--------------------------------------------------------------------------------------------------
-            ////теоретическая функция распределения
-            ////chart2.Series.Add("Функция распределения");
-            ////chart2.Series["Функция распределения"].Points.Clear();
-            //chart2.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            //Xmin = 0;
-            //Xmax = double.Parse(textBox2.Text);
-            //step = 1;
-            //float stp = 0.1f;
-            //double[] x2 = new double[count + 1];
-            //double[] k2 = new double[count + 1];
+            //теоретическая функция распределения
+            chart2.Series.Add("теоретическая");
+            chart2.Series["теоретическая"].Points.Clear();
+            chart2.Series["теоретическая"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            Xmin = 0;
+            Xmax = double.Parse(textBox2.Text);
+            step = 1;
+            float stp = 0.1f;
+            double[] x2 = new double[count + 1];
+            double[] k2 = new double[count + 1];
 
-            //x2[0] = Xmin;
-            //x2[count] = Xmin + step * (count);
-            //k2[0] = 0;
-            //k2[count] = 1;
-            //for (int i = 1; i < count; i++)
-            //{
-            //    x2[i] = Xmin + step * i;
-            //    k2[i] = elem.functionDisribution2(stp, (float)Convert.ToDouble(textBox1.Text));
-            //    //chart2.Series[0].Points.AddXY(x[i], k[i]);
-            //}
-
-            //chart2.ChartAreas[0].AxisX.Minimum = Xmin;
-            //chart2.ChartAreas[0].AxisX.Maximum = Xmax;
-            //chart2.ChartAreas[0].AxisX.MajorGrid.Interval = step;
-            //chart2.Series[0].Points.DataBindXY(x2, k2);
+            x2[0] = Xmin;
+            x2[count] = Xmin + step * (count);
+            k2[0] = 0;
+            k2[count] = 1;
+            for (int i = 1; i < count; i++)
+            {
+                x2[i] = Xmin + step * i;
+                k2[i] = elem.functionDisribution2(i, (float)Convert.ToDouble(textBox1.Text));
+                //chart2.Series["ass"].Points.AddXY(x2[i], k2[i]);
+            }
+            chart2.Series["теоретическая"].Points.DataBindXY(x2, k2);
         }
 
         private void button3_Click(object sender, EventArgs e)
