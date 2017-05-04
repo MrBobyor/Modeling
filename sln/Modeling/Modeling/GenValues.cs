@@ -11,6 +11,7 @@ namespace Modeling
         public float sigma;
         public int num;
         public float[] val;
+        float eps = 0.3f;
         Random rnd = new Random();
 
         public float GetRandomValue()
@@ -56,7 +57,8 @@ namespace Modeling
             float sampleMean = 0;
             for(int i = 0; i < num; i++)
                 sampleMean += val[i];
-            return (1/num) * sampleMean; 
+            sampleMean /= num;
+            return sampleMean; 
         }
 
         public float SampleDispersion()
@@ -64,8 +66,19 @@ namespace Modeling
             float x = SampleMean();
             float sampleDispersion = 0;
             for (int i = 0; i < num; i++)
-                sampleDispersion += (float)(Math.Pow((val[i] - x), 2));
-            return (1 / num) * sampleDispersion;
+                sampleDispersion += (val[i] - x)*(val[i] - x);
+            sampleDispersion /= num;
+            return sampleDispersion;
+        }
+
+        public float SampleNDispersion()
+        {
+            float x = SampleMean();
+            float sampleDispersion = 0;
+            for (int i = 0; i < num; i++)
+                sampleDispersion += (val[i] - x) * (val[i] - x);
+            sampleDispersion /= (num - 1);
+            return sampleDispersion;
         }
 
         public float SampleScope()
@@ -85,5 +98,25 @@ namespace Modeling
                 sampleMedian = (val[(num - 1) / 2] + val[(num - 3) / 2]) / 2;
             return sampleMedian;
         }
+
+        //public float SampleMatExpectation()
+        //{
+
+        //    return 1.0f;
+        //}
+
+        public float GetMaxPeriod()
+        {
+            return this.val[num - 1] + eps;
+        }
+
+        public float GetMinPeriod()
+        {
+            if (this.val[0] - eps > 0)
+                return this.val[0] - eps;
+            else
+                return 0;
+        }
+
     }
 }
