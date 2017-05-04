@@ -23,6 +23,7 @@ namespace Modeling
         }
 
         GenValues elem;
+        int[,] gist1;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -43,12 +44,12 @@ namespace Modeling
             //значения
             dataGridView2.RowCount = 2;
             dataGridView2.ColumnCount = 8;
-            dataGridView2.Rows[1].Cells[0].Value = 0;
+            dataGridView2.Rows[1].Cells[0].Value = elem.MathExpectation().ToString();
             dataGridView2.Rows[1].Cells[1].Value = elem.SampleMean().ToString();
-            dataGridView2.Rows[1].Cells[2].Value = 0;
+            dataGridView2.Rows[1].Cells[2].Value = Math.Abs(elem.MathExpectation() - elem.SampleMean()).ToString();
             dataGridView2.Rows[1].Cells[3].Value = elem.SampleDispersion().ToString();
-            dataGridView2.Rows[1].Cells[4].Value = elem.SampleNDispersion().ToString();
-            dataGridView2.Rows[1].Cells[5].Value = 0;
+            dataGridView2.Rows[1].Cells[4].Value = elem.TheoreticalDispersion().ToString();
+            dataGridView2.Rows[1].Cells[5].Value = Math.Abs(elem.SampleDispersion() - elem.TheoreticalDispersion()).ToString();
             dataGridView2.Rows[1].Cells[6].Value = elem.SampleMedian().ToString();
             dataGridView2.Rows[1].Cells[7].Value = elem.SampleScope().ToString();
             //наименивания
@@ -68,12 +69,15 @@ namespace Modeling
             dataGridView2.Rows[0].Cells[5].Value = s6;
             dataGridView2.Rows[0].Cells[6].Value = s7;
             dataGridView2.Rows[0].Cells[7].Value = s8;
+
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             ////------------------------------------------------------------------------------------------------
-            //// grafic
+            //// grafic with pictureBox
+
             //int wX;
             //int hX;
             //double xF = 0, yF = 0, yF1 = 0;
@@ -142,8 +146,6 @@ namespace Modeling
             chart2.Series[0].Points.Clear();
             chart2.Series[0].LegendText = "выборочная";
             chart2.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            //chart2.Series.Add("Функция распределения");
-            //chart2.Series["Функция распределения"].Points.Clear();
             double Xmin = 0;
             double Xmax = double.Parse(textBox2.Text);
             double step = 1;
@@ -160,7 +162,6 @@ namespace Modeling
             {
                 x1[i] = Xmin + step * i;
                 k1[i] = elem.functionDisribution2(elem.val[i], (float)Convert.ToDouble(textBox1.Text));
-                //chart2.Series[0].Points.AddXY(x[i], k[i]);
             }
 
             chart2.ChartAreas[0].AxisX.Minimum = Xmin;
@@ -176,7 +177,6 @@ namespace Modeling
             Xmin = 0;
             Xmax = double.Parse(textBox2.Text);
             step = 1;
-            float stp = 0.1f;
             double[] x2 = new double[count + 1];
             double[] k2 = new double[count + 1];
 
@@ -187,8 +187,7 @@ namespace Modeling
             for (int i = 1; i < count; i++)
             {
                 x2[i] = Xmin + step * i;
-                k2[i] = elem.functionDisribution2(i, (float)Convert.ToDouble(textBox1.Text));
-                //chart2.Series["ass"].Points.AddXY(x2[i], k2[i]);
+                k2[i] = elem.functionDisribution2((float)(i * Xmax), (float)Convert.ToDouble(textBox1.Text));
             }
             chart2.Series["теоретическая"].Points.DataBindXY(x2, k2);
         }
@@ -196,7 +195,7 @@ namespace Modeling
         private void button3_Click(object sender, EventArgs e)
         {
             //gistogramm
-            //chart1.SetBounds((int)elem.val[0],(int)elem.val[elem.num - 1], 1, 1);
+            /*//chart1.SetBounds((int)elem.val[0],(int)elem.val[elem.num - 1], 1, 1);
             int gist = Convert.ToInt32(textBox3.Text);
             int step = (int)((elem.GetMaxPeriod() - elem.GetMinPeriod()) / gist);
             //ChartArea area = new ChartArea();
@@ -210,55 +209,67 @@ namespace Modeling
             //series1.LegendText = "Колличество элементов на интервале";
             //chart1.Series.Add("Экспериментов на интервале");
 
-            chart1.Series.Add("Экспериментов на интервале");
-            chart1.Series["Экспериментов на интервале"].Points.Clear();
+
+            chart1.Series[0].LegendText = "Экспериментов на интервале";
+            chart1.Series[0].Points.Clear();
             float[] k = new float[gist];
-            float limit = elem.GetMinPeriod() + step;
-            for (int i = 0; i < gist; i++)
-            {
-                int ki = 0;
-                for (int j = 0; j < elem.num; j++)
+            int ki = 0;
+                for (int i = 0; i < elem.num; i++)
                 {
-                    if (elem.val[j] <= limit && elem.val[j] > limit - step)
+                    if ((elem.val[i] > elem.GetMinPeriod() + step * ki) && (elem.val[i] < elem.GetMinPeriod() + step * (ki + 1)))
+                        k[ki]++;
+                    else
                     {
                         ki++;
-                        k[i] = ki;
+                        i--;
                     }
-                    else
-                        limit += step;
-                    break;
+                    
+                    //chart1.Series[0].Points.Add(k[ki]); 
                 }
-                chart1.Series["Экспериментов на интервале"].Points.AddXY(Convert.ToString(Math.Round(elem.val[0] + (Math.Round(Math.Round(elem.val[Convert.ToInt32(textBox2.Text) - 1] - elem.val[0], 2) / Int32.Parse(textBox3.Text), 2) * i), 2)) + "-" + Convert.ToString(Math.Round(elem.val[0] + (Math.Round(Math.Round(elem.val[Convert.ToInt32(textBox2.Text) - 1] - elem.val[0], 2) / Int32.Parse(textBox3.Text), 2) * (i + 1)), 2)), k[i]);
-            //chart1.DataBind();
+            //chart1.Series[0].Points.AddXY(Convert.ToString(Math.Round(elem.val[0] + (Math.Round(Math.Round(elem.val[Convert.ToInt32(textBox2.Text) - 1] - elem.val[0], 2) / Int32.Parse(textBox3.Text), 2) * i), 2)) + "-" + Convert.ToString(Math.Round(elem.val[0] + (Math.Round(Math.Round(elem.val[Convert.ToInt32(textBox2.Text) - 1] - elem.val[0], 2) / Int32.Parse(textBox3.Text), 2) * (i + 1)), 2)), k);
+                //chart1.DataBind();*/   
 
+            int count = Int32.Parse(textBox2.Text);
+            double step = Math.Round(Math.Round(elem.val[count - 1], 3) / Int32.Parse(textBox3.Text), 3); 
+            chart1.Series[0].LegendText = "Элементов на интервале"; 
+            chart1.Series[0].Points.Clear(); 
+            int []gist = new int[Int32.Parse(textBox3.Text) + 1]; 
+            Array.Sort(elem.val); 
+            int k = 0; 
+            
+            for (int i = 0; i < count; i++) 
+            { 
+                if ((elem.val[i] > k * step) && (elem.val[i] < (k + 1) * step)) 
+                { 
+                    gist[k]++; 
+                } 
+                else 
+                { 
+                    k++; 
+                    i--; 
+                }
+            } 
+
+            for (int j = 0; j < Int32.Parse(textBox3.Text); j++) 
+            { 
+                chart1.Series[0].Points.Add(gist[j]); 
             }
-        
-            //chart1.Series["Экспериментов на интервале"].Points.AddXY(Convert.ToString(Math.Round(elem.val[0] + (Math.Round(Math.Round(elem.val[Convert.ToInt32(textBox2.Text) - 1] - elem.val[0], 2) / Int32.Parse(textBox3.Text), 2) * i), 2)) + "-" + Convert.ToString(Math.Round(elem.val[0] + (Math.Round(Math.Round(elem.val[Convert.ToInt32(textBox2.Text) - 1] - elem.val[0], 2) / Int32.Parse(textBox3.Text), 2) * (i + 1)), 2)), gist);
-            //chart1.Series[0].Points.DataBindXY(x, k);
 
-            //chart1.Series.Add("Экспериментов на интервале");
-            //chart1.Series["Экспериментов на интервале"].Points.Clear();
-            //int count = Int32.Parse(textBox2.Text);
-
-            //for (int i = 0; i < Int32.Parse(textBox3.Text); i++)
-            //{
-            //    int gist = 0;
-            //    for (int j = 0; j < count; j++)
-            //    {
-            //        if (j == count - 1)
-            //        {
-            //            if (Math.Round(elem.val[j], 2) <= ( && Math.Round(elem.val[j], 2) >= (Math.Round((elem.val[0] + (Math.Round(Math.Round(elem.val[Convert.ToInt32(textBox2.Text) - 1] - elem.val[0], 2) / Int32.Parse(textBox3.Text), 2) * i)), 2)))
-            //                gist++;
-            //        }
-            //        else
-            //        {
-            //            if (Math.Round(elem.val[j], 2) <= Math.Round((elem.val[0] + Math.Round(Math.Round(elem.val[Convert.ToInt32(textBox2.Text) - 1] - elem.val[0], 2) / Int32.Parse(textBox3.Text), 2) * (i + 1))) && Math.Round(elem.val[j], 2) >= Math.Round((elem.val[0] + (Math.Round(Math.Round(elem.val[Convert.ToInt32(textBox2.Text) - 1] - elem.val[0], 2) / Int32.Parse(textBox3.Text), 2) * i)), 2))
-            //                gist++;
-            //        }
-            //    }
-            //    chart1.Series["Экспериментов на интервале"].Points.AddXY(Convert.ToString(Math.Round(elem.val[0] + (Math.Round(Math.Round(elem.val[Convert.ToInt32(textBox2.Text) - 1] - elem.val[0], 2) / Int32.Parse(textBox3.Text), 2) * i), 2)) + "-" + Convert.ToString(Math.Round(elem.val[0] + (Math.Round(Math.Round(elem.val[Convert.ToInt32(textBox2.Text) - 1] - elem.val[0], 2) / Int32.Parse(textBox3.Text), 2) * (i + 1)), 2)), gist);
-
-            //}
+            chart1.DataBind();    
+ 
+            //таблица результатов
+            //значения
+            dataGridView3.RowCount = 3;
+            dataGridView3.ColumnCount = Convert.ToInt32(textBox3.Text);
+            for(int i = 0; i < Convert.ToInt32(textBox3.Text); i++)
+            {
+                double value1 = Math.Round(elem.GetMinPeriod() + step * (i + (1/2)), 3);
+                double value2 = Math.Round(elem.functionDistributionDensity2(value1, Convert.ToDouble(textBox1.Text)), 3);
+                double value3 = Math.Round((gist[i] / (Convert.ToInt32(textBox3.Text) * step)), 3);
+                dataGridView3.Rows[0].Cells[i].Value = value1.ToString();
+                dataGridView3.Rows[1].Cells[i].Value = value2.ToString();
+                dataGridView3.Rows[2].Cells[i].Value = value3.ToString();
+            }
         }
 
     }
