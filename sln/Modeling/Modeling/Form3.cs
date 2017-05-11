@@ -20,25 +20,20 @@ namespace Modeling
         {
             InitializeComponent();
             pictureBox1.Image = new Bitmap(@"F:\Inf\sashka einstein\education\семестры\весенний семестр 2017\ТВиМС (лаб)\лаб.раб\Modeling\pictures\E2.png");
+            pictureBox2.Image = new Bitmap(@"F:\Inf\sashka einstein\education\семестры\весенний семестр 2017\ТВиМС (лаб)\лаб.раб\Modeling\pictures\E1.png");
         }
 
         GenValues elem;
-        int[,] gist1;
 
         private void button1_Click(object sender, EventArgs e)
         {
-            dataGridView1.RowCount = 2;
-            dataGridView1.ColumnCount = Convert.ToInt32(textBox2.Text);
             elem = new GenValues((float)Convert.ToDouble(textBox1.Text), Convert.ToInt32(textBox2.Text));
             for (int i = 0; i < Convert.ToInt32(textBox2.Text); i++)
                 elem.GenVal(elem.GetRandomValue());
             elem.GetVal();
 
             for (int i = 0; i < Convert.ToInt32(textBox2.Text); i++)
-            {  
-                dataGridView1.Rows[0].Cells[i].Value = "x" + (i + 1);
-                dataGridView1.Rows[1].Cells[i].Value =  elem.val[i].ToString();
-            }
+                listBox1.Items.Add("x" + (i + 1) + "  " + elem.val[i].ToString());
 
             //заполнение таблицы числовых характеристик
             //значения
@@ -75,163 +70,66 @@ namespace Modeling
 
         private void button2_Click(object sender, EventArgs e)
         {
-            ////------------------------------------------------------------------------------------------------
-            //// grafic with pictureBox
-
-            //int wX;
-            //int hX;
-            //double xF = 0, yF = 0, yF1 = 0;
-            //int y;
-            //int scale = 100;
-
-            //wX = pictureBox2.Width;
-            //hX = pictureBox2.Height;
-            //pictureBox2.BackColor = Color.White;
-            
-            //System.Drawing.Pen myPen1;
-            //System.Drawing.Pen myPen2;
-            //System.Drawing.Pen myPen3;
-            //myPen1 = new System.Drawing.Pen(System.Drawing.Color.Black);
-            //myPen2 = new System.Drawing.Pen(System.Drawing.Color.Blue);
-            //myPen3 = new System.Drawing.Pen(System.Drawing.Color.Red);
-           
-            ////system cord
-            //Bitmap flag = new Bitmap(pictureBox2.Width, pictureBox2.Height);
-            //Graphics flagGraphics = Graphics.FromImage(flag);
-            //flagGraphics.DrawLine(myPen1, 0, hX - 2, 0, 0);
-            //flagGraphics.DrawLine(myPen1, 0, hX - 2, wX, hX - 2);
-            
-
-            ////values cord
-            //for (int i = 0; i < Convert.ToInt32(textBox2.Text); i++)
-            //{
-            //    flagGraphics.DrawLine(myPen1, i, hX - 2, i, hX + 2);
-            //    i += wX / Convert.ToInt32(textBox2.Text);
-            //}
-
-            //// grafic 
-            //int X2 = 0;
-            //int Y2 = hX - 2;
-            //int Y2_1 = hX - 2;
-            //for (y = 0; y < Convert.ToInt32(textBox2.Text); y++)
-            //{
-            //    xF = (y + 1) * (wX / Convert.ToInt32(textBox2.Text));
-            //    float tmp = elem.functionDisribution2(elem.val[y], (float)Convert.ToDouble(textBox1.Text));
-            //    float tmp1 = (1 / Convert.ToInt32(textBox2.Text)) * elem.functionDisribution2(elem.val[y], (float)Convert.ToDouble(textBox1.Text));
-            //    yF = hX - tmp * scale; 
-            //    yF1 = hX - tmp1 * scale;
-            //    //flag.SetPixel((int)xF, (int)yF, Color.Red);
-            //    flagGraphics.DrawLine(myPen2, X2, Y2, (int)xF, (int)yF);
-            //    flagGraphics.DrawLine(myPen3, X2, Y2_1, (int)xF, (int)yF1);
-            //    X2 = (int)xF;
-            //    Y2 = (int)yF;
-            //    Y2_1 = (int)yF1;
-            //}
-            
-            //myPen1.DashStyle = DashStyle.Dash;
-            ////1
-            //flagGraphics.DrawLine(myPen1, new Point(0, hX - scale), new Point(wX, hX - scale));
-            ////mesh
-            ///*for (int i = 0; i < Convert.ToInt32(textBox2.Text); i += (wX / Convert.ToInt32(textBox2.Text)))
-            //    if (i == 0)
-            //        continue;
-            //    else
-            //        flagGraphics.DrawLine(myPen1, new Point(i, 0), new Point(i, hX));*/
-
-            //myPen1.Dispose();
-            //pictureBox2.Image = flag;
-
-            //--------------------------------------------------------------------------------------------------
-            //выборочная функция распределения
-            chart2.Series[0].Points.Clear();
-            chart2.Series[0].LegendText = "выборочная";
-            chart2.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             double Xmin = 0;
             double Xmax = double.Parse(textBox2.Text);
-            double step = 1;
-            int count = (int)Math.Ceiling((Xmax - Xmin) / step);
-            double[] x1 = new double[count + 1];
-            double[] k1 = new double[count + 1];
-            //chart2.Series[0].IsValueShownAsLabel = true;  //значения
-
-            x1[0] = Xmin;
-            k1[0] = 0;
-            x1[count] = Xmin + step * (count);
-            k1[count] = 1;
-            for (int i = 1; i < count; i++)
-            {
-                x1[i] = Xmin + step * i;
-                k1[i] = elem.functionDisribution2(elem.val[i], (float)Convert.ToDouble(textBox1.Text));
-            }
+            double step = 0.5;
+            int count = Convert.ToInt32(textBox2.Text);
 
             chart2.ChartAreas[0].AxisX.Minimum = Xmin;
-            chart2.ChartAreas[0].AxisX.Maximum = Xmax;
+            chart2.ChartAreas[0].AxisX.Maximum = 10;
             chart2.ChartAreas[0].AxisX.MajorGrid.Interval = step;
-            chart2.Series[0].Points.DataBindXY(x1, k1);
-
-            //--------------------------------------------------------------------------------------------------
+          
             //теоретическая функция распределения
             chart2.Series.Add("теоретическая");
             chart2.Series["теоретическая"].Points.Clear();
             chart2.Series["теоретическая"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            Xmin = 0;
-            Xmax = double.Parse(textBox2.Text);
-            step = 1;
-            double[] x2 = new double[count + 1];
-            double[] k2 = new double[count + 1];
-
-            x2[0] = Xmin;
-            x2[count] = Xmin + step * (count);
-            k2[0] = 0;
-            k2[count] = 1;
-            for (int i = 1; i < count; i++)
+            for (int i = 0; i < 100; i++)
             {
-                x2[i] = Xmin + step * i;
-                k2[i] = elem.functionDisribution2((float)(i * Xmax), (float)Convert.ToDouble(textBox1.Text));
+                chart2.Series["теоретическая"].Points.AddXY(i, elem.functionDisribution2(i, (float)Convert.ToDouble(textBox1.Text)));
             }
-            chart2.Series["теоретическая"].Points.DataBindXY(x2, k2);
+            
+            //выборочная функция распределения
+            chart2.Series[0].LegendText = "выборочная";
+            chart2.Series[0].Points.Clear();
+            chart2.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
+            double y = 0;
+            double max = 0;
+            int z = -1;
+            float[] valu = new float[count+1];
+            valu[0] = 0;
+            for (int i = 0; i < count; i++)
+            {
+                valu[i + 1] = elem.val[i];
+            }
+            for (int i = 0; i < count + 1; i++)
+            {
+                max = ((double)(i) / (double)(count) - elem.functionDisribution2(i, (float)Convert.ToDouble(textBox1.Text)));
+                z++;
+                y = (double)(z) / (double)(count);
+                if (elem.functionDisribution2(valu[i], (float)Convert.ToDouble(textBox1.Text)) - ((double)(i - 1) / (double)(count)) > max)
+                    max = (elem.functionDisribution2(valu[i], (float)Convert.ToDouble(textBox1.Text))) - ((double)(i - 1) / (double)(count));
+                chart2.Series[0].Points.AddXY(valu[i], y);
+            }
+
+            //величина D
+            double D = 0;
+            for (int j = 0; j < Convert.ToInt32(textBox2.Text); j++)
+            {
+                if((j / Convert.ToInt32(textBox2.Text)) - elem.functionDisribution2(elem.val[j] ,Convert.ToInt32(textBox2.Text)) > elem.functionDisribution2(elem.val[j] ,Convert.ToInt32(textBox2.Text)) - ((j - 1)/Convert.ToInt32(textBox2.Text)))
+                    D = (j / Convert.ToInt32(textBox2.Text)) - elem.functionDisribution2(elem.val[j] ,Convert.ToInt32(textBox2.Text));
+                else
+                    D = elem.functionDisribution2(elem.val[j] ,Convert.ToInt32(textBox2.Text)) - ((j - 1)/Convert.ToInt32(textBox2.Text));
+            }
+            label9.Text = Convert.ToString(Math.Round(D,3));
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //gistogramm
-            /*//chart1.SetBounds((int)elem.val[0],(int)elem.val[elem.num - 1], 1, 1);
-            int gist = Convert.ToInt32(textBox3.Text);
-            int step = (int)((elem.GetMaxPeriod() - elem.GetMinPeriod()) / gist);
-            //ChartArea area = new ChartArea();
-            //area.AxisX.Minimum = elem.GetMinPeriod();
-            //area.AxisX.Maximum = elem.GetMaxPeriod();
-            //area.AxisX.MajorGrid.Interval = step;
-            //chart1.ChartAreas.Add(area);
-
-            //Series series1 = new Series();
-            //series1.ChartType = SeriesChartType.Column;
-            //series1.LegendText = "Колличество элементов на интервале";
-            //chart1.Series.Add("Экспериментов на интервале");
-
-
-            chart1.Series[0].LegendText = "Экспериментов на интервале";
-            chart1.Series[0].Points.Clear();
-            float[] k = new float[gist];
-            int ki = 0;
-                for (int i = 0; i < elem.num; i++)
-                {
-                    if ((elem.val[i] > elem.GetMinPeriod() + step * ki) && (elem.val[i] < elem.GetMinPeriod() + step * (ki + 1)))
-                        k[ki]++;
-                    else
-                    {
-                        ki++;
-                        i--;
-                    }
-                    
-                    //chart1.Series[0].Points.Add(k[ki]); 
-                }
-            //chart1.Series[0].Points.AddXY(Convert.ToString(Math.Round(elem.val[0] + (Math.Round(Math.Round(elem.val[Convert.ToInt32(textBox2.Text) - 1] - elem.val[0], 2) / Int32.Parse(textBox3.Text), 2) * i), 2)) + "-" + Convert.ToString(Math.Round(elem.val[0] + (Math.Round(Math.Round(elem.val[Convert.ToInt32(textBox2.Text) - 1] - elem.val[0], 2) / Int32.Parse(textBox3.Text), 2) * (i + 1)), 2)), k);
-                //chart1.DataBind();*/   
-
+            //гистограмма
             int count = Int32.Parse(textBox2.Text);
-            double step = Math.Round(Math.Round(elem.val[count - 1], 3) / Int32.Parse(textBox3.Text), 3); 
-            chart1.Series[0].LegendText = "Элементов на интервале"; 
+            double step = Math.Round(Math.Round(elem.val[count - 1], 10) / Int32.Parse(textBox3.Text), 10); 
+            chart1.Series[0].LegendText = "Элементов на интервале";
+            //chart1.Series[0].LegendText = "Гистограмма относительно частот";
             chart1.Series[0].Points.Clear(); 
             int []gist = new int[Int32.Parse(textBox3.Text) + 1]; 
             Array.Sort(elem.val); 
@@ -248,17 +146,15 @@ namespace Modeling
                     k++; 
                     i--; 
                 }
-            } 
-
-            for (int j = 0; j < Int32.Parse(textBox3.Text); j++) 
-            { 
-                chart1.Series[0].Points.Add(gist[j]); 
             }
 
+            for (int j = 0; j < Int32.Parse(textBox3.Text); j++)
+                chart1.Series[0].Points.Add(gist[j]);
             chart1.DataBind();    
  
             //таблица результатов
             //значения
+            double result = 0;
             dataGridView3.RowCount = 3;
             dataGridView3.ColumnCount = Convert.ToInt32(textBox3.Text);
             for(int i = 0; i < Convert.ToInt32(textBox3.Text); i++)
@@ -269,7 +165,12 @@ namespace Modeling
                 dataGridView3.Rows[0].Cells[i].Value = value1.ToString();
                 dataGridView3.Rows[1].Cells[i].Value = value2.ToString();
                 dataGridView3.Rows[2].Cells[i].Value = value3.ToString();
+                if(result < Math.Abs(value3 - value2))
+                    result = Math.Abs(value3 - value2);
+                //chart1.Series[0].Points.Add(value3);   //гистограмма относительно частот
             }
+            label7.Text = Convert.ToString(result);
+            //chart1.DataBind();
         }
 
     }
