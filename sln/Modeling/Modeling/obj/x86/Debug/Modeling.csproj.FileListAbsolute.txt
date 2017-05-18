@@ -8,3 +8,4 @@ F:\Inf\sashka einstein\education\семестры\весенний семест�
 F:\Inf\sashka einstein\education\семестры\весенний семестр 2017\ТВиМС (лаб)\лаб.раб\Modeling\sln\Modeling\Modeling\obj\x86\Debug\Modeling.Form2.resources
 F:\Inf\sashka einstein\education\семестры\весенний семестр 2017\ТВиМС (лаб)\лаб.раб\Modeling\sln\Modeling\Modeling\obj\x86\Debug\Modeling.Form3.resources
 F:\Inf\sashka einstein\education\семестры\весенний семестр 2017\ТВиМС (лаб)\лаб.раб\Modeling\sln\Modeling\Modeling\obj\x86\Debug\Modeling.csprojResolveAssemblyReference.cache
+F:\Inf\sashka einstein\education\семестры\весенний семестр 2017\ТВиМС (лаб)\лаб.раб\Modeling\sln\Modeling\Modeling\obj\x86\Debug\Modeling.Form4.resources

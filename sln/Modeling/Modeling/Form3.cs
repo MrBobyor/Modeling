@@ -16,11 +16,15 @@ namespace Modeling
 {
     public partial class Form3 : Form
     {
+        public double z0 = 0;
+        public double zn = 0;
         public Form3()
         {
             InitializeComponent();
             pictureBox1.Image = new Bitmap(@"F:\Inf\sashka einstein\education\семестры\весенний семестр 2017\ТВиМС (лаб)\лаб.раб\Modeling\pictures\E2.png");
             pictureBox2.Image = new Bitmap(@"F:\Inf\sashka einstein\education\семестры\весенний семестр 2017\ТВиМС (лаб)\лаб.раб\Modeling\pictures\E1.png");
+            z0 = 0;
+            zn = 0;
         }
 
         GenValues elem;
@@ -49,11 +53,11 @@ namespace Modeling
             dataGridView2.Rows[1].Cells[7].Value = elem.SampleScope().ToString();
             //наименивания
             string s1 = "Eη",
-                   s2 = "x",
-                   s3 = "|Eη - x|",
+                   s2 = "x̅",
+                   s3 = "|Eη - x̅|",
                    s4 = "Dη",
-                   s5 = "S2",
-                   s6 = "|Dη - S2|",
+                   s5 = "S²",
+                   s6 = "|Dη - S²|",
                    s7 = "Me",
                    s8 = "R";
             dataGridView2.Rows[0].Cells[0].Value = s1;
@@ -121,13 +125,6 @@ namespace Modeling
                 if (mas[j] > D)
                     D = mas[j];
             }
-            //for (int j = 0; j < Convert.ToInt32(textBox2.Text); j++)
-            //{
-            //    if ((j / Convert.ToInt32(textBox2.Text)) - elem.functionDisribution2(elem.val[j], Convert.ToInt32(textBox2.Text)) > elem.functionDisribution2(elem.val[j], Convert.ToInt32(textBox2.Text)) - ((j - 1) / Convert.ToInt32(textBox2.Text)))
-            //        D = (j / Convert.ToInt32(textBox2.Text)) - elem.functionDisribution2(elem.val[j], Convert.ToInt32(textBox2.Text));
-            //    else 
-            //        D = elem.functionDisribution2(elem.val[j], Convert.ToInt32(textBox2.Text)) - ((j - 1) / Convert.ToInt32(textBox2.Text));
-            //}
             label9.Text = Convert.ToString(Math.Round(D,3));
         }
 
@@ -182,6 +179,16 @@ namespace Modeling
             }
             label7.Text = Convert.ToString(result);
             //chart1.DataBind();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            z0 = elem.GetMinPeriod();
+            zn = elem.GetMaxPeriod();
+            Form4 form = new Form4(z0, zn, elem);
+            form.ShowDialog();
+             
+
         }
 
     }

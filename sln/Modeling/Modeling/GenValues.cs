@@ -26,6 +26,13 @@ namespace Modeling
             val = new float[num];
         }
 
+        public void Clone(GenValues elem1)
+        {
+            this.sigma = elem1.sigma;
+            this.num = elem1.num;
+            this.val = elem1.val;
+        }
+
         public void GenVal(float u)
         {
             if (u < 0 || u > 1)
