@@ -72,7 +72,7 @@ namespace Modeling
         {
             double Xmin = 0;
             double Xmax = double.Parse(textBox2.Text);
-            double step = 0.5;
+            double step = 1;
             int count = Convert.ToInt32(textBox2.Text);
 
             chart2.ChartAreas[0].AxisX.Minimum = Xmin;
@@ -95,7 +95,9 @@ namespace Modeling
             double y = 0;
             double max = 0;
             int z = -1;
-            float[] valu = new float[count+1];
+            float[] valu = new float[count + 1];
+            double[] mas = new double[count + 1];
+
             valu[0] = 0;
             for (int i = 0; i < count; i++)
             {
@@ -108,18 +110,24 @@ namespace Modeling
                 y = (double)(z) / (double)(count);
                 if (elem.functionDisribution2(valu[i], (float)Convert.ToDouble(textBox1.Text)) - ((double)(i - 1) / (double)(count)) > max)
                     max = (elem.functionDisribution2(valu[i], (float)Convert.ToDouble(textBox1.Text))) - ((double)(i - 1) / (double)(count));
+                mas[i] = max;
                 chart2.Series[0].Points.AddXY(valu[i], y);
             }
 
             //величина D
             double D = 0;
-            for (int j = 0; j < Convert.ToInt32(textBox2.Text); j++)
+            for (int j = 0; j < Convert.ToInt32(textBox2.Text) + 1; j++)
             {
-                if((j / Convert.ToInt32(textBox2.Text)) - elem.functionDisribution2(elem.val[j] ,Convert.ToInt32(textBox2.Text)) > elem.functionDisribution2(elem.val[j] ,Convert.ToInt32(textBox2.Text)) - ((j - 1)/Convert.ToInt32(textBox2.Text)))
-                    D = (j / Convert.ToInt32(textBox2.Text)) - elem.functionDisribution2(elem.val[j] ,Convert.ToInt32(textBox2.Text));
-                else
-                    D = elem.functionDisribution2(elem.val[j] ,Convert.ToInt32(textBox2.Text)) - ((j - 1)/Convert.ToInt32(textBox2.Text));
+                if (mas[j] > D)
+                    D = mas[j];
             }
+            //for (int j = 0; j < Convert.ToInt32(textBox2.Text); j++)
+            //{
+            //    if ((j / Convert.ToInt32(textBox2.Text)) - elem.functionDisribution2(elem.val[j], Convert.ToInt32(textBox2.Text)) > elem.functionDisribution2(elem.val[j], Convert.ToInt32(textBox2.Text)) - ((j - 1) / Convert.ToInt32(textBox2.Text)))
+            //        D = (j / Convert.ToInt32(textBox2.Text)) - elem.functionDisribution2(elem.val[j], Convert.ToInt32(textBox2.Text));
+            //    else 
+            //        D = elem.functionDisribution2(elem.val[j], Convert.ToInt32(textBox2.Text)) - ((j - 1) / Convert.ToInt32(textBox2.Text));
+            //}
             label9.Text = Convert.ToString(Math.Round(D,3));
         }
 
@@ -150,7 +158,10 @@ namespace Modeling
 
             for (int j = 0; j < Int32.Parse(textBox3.Text); j++)
                 chart1.Series[0].Points.Add(gist[j]);
-            chart1.DataBind();    
+            chart1.DataBind();  
+  
+            //для 4х заданных интервалов
+
  
             //таблица результатов
             //значения

@@ -95,7 +95,7 @@ namespace Modeling
             if (num % 2 != 0)
                 sampleMedian = val[num / 2];
             else
-                sampleMedian = (val[(num - 1) / 2] + val[(num - 3) / 2]) / 2;
+                sampleMedian = (val[(num) / 2] + val[(num - 2) / 2]) / 2;
             return sampleMedian;
         }
         
