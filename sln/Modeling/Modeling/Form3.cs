@@ -169,7 +169,7 @@ namespace Modeling
             {
                 double value1 = Math.Round(elem.GetMinPeriod() + step * (i + (1/2)), 3);
                 double value2 = Math.Round(elem.functionDistributionDensity2(value1, Convert.ToDouble(textBox1.Text)), 3);
-                double value3 = Math.Round((gist[i] / (Convert.ToInt32(textBox3.Text) * step)), 3);
+                double value3 = Math.Round((gist[i] / (Convert.ToInt32(textBox2.Text) * step)), 3);
                 dataGridView3.Rows[0].Cells[i].Value = value1.ToString();
                 dataGridView3.Rows[1].Cells[i].Value = value2.ToString();
                 dataGridView3.Rows[2].Cells[i].Value = value3.ToString();
@@ -187,8 +187,6 @@ namespace Modeling
             zn = elem.GetMaxPeriod();
             Form4 form = new Form4(z0, zn, elem);
             form.ShowDialog();
-             
-
         }
 
     }
